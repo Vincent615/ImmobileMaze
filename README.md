@@ -13,7 +13,7 @@ Python play.py
 ```
 ## Quit the Program
 
-input quit or q when it's notated
+Input "quit" or "q" when it's notated
 
 
 ## Contributing
