@@ -6,6 +6,14 @@
 # Description: A RPG simple menu while encountering a monster
 
 
+# Course: CS 30
+# Period: 2
+# Date created: 20/11/23
+# Date last modified: 20/12/20
+# Name: Yingwen Liu
+# Description: A RPG simple menu while encountering a monster
+
+
 from player import Player
 from player import Backpack
 import monsters as m
@@ -18,70 +26,94 @@ move = ['front', 'f', '1', 'left', 'l', '2', 'right', 'r', '3']
 backpack = ['backpack', 'b', '4']   # Command list for backpack
 quit = ['quit', 'q', '5']    # Command list to quit the game
 
-def play(): 
-    # Show the game background
+
+def play():
+    '''The beginning of the game'''
     print('You woke up.\nYou find you are in a abandoned dungeon.')
     print('\n- The goal is to >>> Stay Alive <<<')
-    safe(0)
+    safe(0)     # 0 refers to 0 round of the game
 
 
 def attacking(Monster):
+    '''The function shows the cauculation if the player attacked'''
     if Player.damage < Monster.resistance:
-        Monster.hp =- 1
+        # Monster's hp minus one if its resistance if higher
+        Monster.hp = Monster.hp - 1
         return
     else:
+        # A formula to calculate damage on the monster
         Monster.hp = Monster.hp + Monster.resistance - Player.damage
         return
     # Show the status of the monster and player
     print(f'\n- You attacked {Monster.name}.\n  Hp left: {Monster.hp}')
+    print(f'\n{Monster.name}\'s turn:')
+
     if Monster.damage < Player.resistance:
-        Player.hp =- 1
+        # Player's hp minus one if its resistance if higher
+        Player.hp = Player.hp - 1
         return
     else:
+        # A formula to calculate damage on the player
         Player.hp = Player.hp + Player.resistance - Monster.damage
         return
     print(f'- You got one hit from the {Monster.name}.')
 
 
 def healing():
+    '''Add health points to the player'''
     if len(Backpack.bandages) == 0:
+        # Tell the player there is no bandages
         print('\n- There is no bandage in your backpack.')
 
     else:
+        # Ask the player how many it needs
         print(f'Available bandages: {len(Backpack.bandages)}')
         a = input('How many will be used? Each one + 10 hp\n>>> ')
         if int(a) <= len(Backpack.bandages):
-            Player.hp =+ int(a) * 10
+            # Each bandage add 10 hp
+            Player.hp = Player.hp + int(a) * 10
+            # remove a bandage from the list
             Backpack.bandages.remove(0)
             return
         else:
+            # Tell the player it asked for too many bandages
             print('\n- There are not enough bandages.')
 
 
 def escaping(Monster):
+    '''There is 25% chance to escape'''
     escapable = random.randint(0, 4)
     if escapable == 1:
         print('\n- You failed to escape.')
+        # Recieve one hit from the monster
         print(f'  You got one hit from the {Monster.name}.')
         Player.hp = Player.hp + Player.resistance - Monster.damage
         return
     else:
+        # Tell the player it escaped
         print('\n- You escaped successfully.')
+        # Call the function safe()
         safe()
 
 
 def moving(round):
     lottery = random.randint(1, 5)
+    # 20% to get nothing
     if lottery == 1:
         print('\n- Nothing happened.')
+    # 60% to encounter a monster
     elif lottery > 2:
         danger(round)
     else:
+    # 20% to get a chest
         while True:
+            # Ask player to open or not
             print('\n- You find a chest.\n\nDo you want to open it?')
             action = '* Open\n* Leave\n>>> '
-            action = input(action).lower()   # Replace the input into lower form
+            action = input(action).lower()   # Replace into lower form
             if action == 'open':
+                # Tell the player there is nothing
+                # This will be updated to find some gears
                 print('- There is nothing inside')
                 break
             elif action == 'leave':
@@ -101,12 +133,16 @@ def backpacking():
 
 
 def safe(round):
+    '''Actions and their results when player is exploring'''
     while True:
+        # Ask player to take an action
         print('\nYou can choose one of the following actions:')
         print('* Front (F)\n* Left (L)\n* Right (R)')
         action = '* Backpack (B)\n* Quit (Q)\n>>> '
         action = input(action).lower()   # Replace the input into lower form
+        
         if action in backpack:
+            # Call the function backpacking
             backpacking()
 
         elif action in quit:
@@ -115,14 +151,19 @@ def safe(round):
             break
 
         elif action in move:
+            # Call the function moving
             moving(round)
+
         else:
             # Print a message for unexpected command
             print('\n- Invalid command.')
 
 
 def danger(round):
+    '''Actions and their results when player encounters a monster'''
+    # Run the loop if player's hp is greater than 0
     while Player.hp > 0:
+        # Round number and its referance monster
         if round < 10:
             Monster = m.Lv1_fodder()
         elif round == 10:
@@ -134,6 +175,7 @@ def danger(round):
         elif round == 21:
             Monster == m.Slime()
         else:
+            # Finish the game if the Round is greater than 21
             print('You successfully escape from the forest!')
             print('\n\n\t\t\t  >>> Congratulations <<<\n\n')
             break
@@ -149,8 +191,9 @@ def danger(round):
             print('* Attack (A)\n* Heal (H)\n* Escape (E)')
 
             action = '* Backpack (B)\n* Quit (Q)\n>>> '
-            action = input(action).lower()   # Replace the input into lower form
-
+            action = input(action).lower()   # Replace into lower form
+            
+            # Actions and their results
             if action in attack:
                 attacking(Monster)
             elif action in heal:
@@ -167,22 +210,29 @@ def danger(round):
                 # Print a message for unexpected command
                 print('\n- Invalid command.')
 
-        else: 
+        else:
+            # Following actions if monster's hp is lower than 0
             if round != 10:
                 print(f'You sucessfully killed the {Monster.name}')
+                # Add 1 round if the monster is killed
                 round = round + 1
+                # Call the funciton safe
                 safe(round)
-
+            # Following actions if the round number is 10
             elif round == 10:
+                # Ask the player to open chest or not
                 print('- You found a mega legendary chest.')
                 print('Do you want to open it?')
                 action = input('* Yes\n* No\n>>> ')
-                action = input(action).lower()   # Replace the input into lower form
+                action = input(action).lower()   # Replace into lower form
                 if action == 'yes':
+                    # The player will encounter Yaranzo this round
                     continue
                 elif action == 'no':
+                    # Add 1 more round if the player choose no 
                     round = round + 1
     else:
+        # Call the function lost when player's hp is lower than 0
         lost()
 
 
