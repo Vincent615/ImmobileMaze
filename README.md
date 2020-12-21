@@ -9,7 +9,7 @@ Python 3.8 is required to play this game. [Python 3.8](https://www.python.org/do
 ## Run the Program
 
 ```bash
-Python main.py
+Python play.py
 ```
 
 ## Contributing
