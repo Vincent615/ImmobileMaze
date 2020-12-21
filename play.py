@@ -236,3 +236,5 @@ def lost():
     print('\t|\t   |\t |\t\t |\t  |')
     print('\t|_____ |_____|  _____|\t  |')
     print('\n\n\t\t\t  >>> Game Over <<<\n\n')
+
+play()
