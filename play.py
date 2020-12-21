@@ -3,15 +3,7 @@
 # Date created: 20/11/23
 # Date last modified: 20/12/20
 # Name: Yingwen Liu
-# Description: A RPG simple menu while encountering a monster
-
-
-# Course: CS 30
-# Period: 2
-# Date created: 20/11/23
-# Date last modified: 20/12/20
-# Name: Yingwen Liu
-# Description: A RPG simple menu while encountering a monster
+# Description: A RPG game talking about the brave risking in the dungeon
 
 
 from player import Player
