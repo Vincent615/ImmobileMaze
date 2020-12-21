@@ -11,6 +11,10 @@ Python 3.8 is required to play this game. [Python 3.8](https://www.python.org/do
 ```bash
 Python play.py
 ```
+## Quit the Program
+
+input quit or q when it's notated
+
 
 ## Contributing
 
