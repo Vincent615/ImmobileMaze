@@ -12,3 +12,6 @@ class Backpack():
         self.bandages = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         self.weapon = ['Diamond sword']
         self.armor = ['Armor']
+
+Player = Player()
+Backpack = Backpack()
