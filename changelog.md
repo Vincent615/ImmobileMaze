@@ -34,3 +34,6 @@ v0.7
 - attempted to debug
 - added map
 - changed death effect
+
+v0.8
+- debuged
