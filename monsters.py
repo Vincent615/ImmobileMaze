@@ -51,3 +51,9 @@ class Slime():
         self.hp = 5
         self.damage = 50
         self.resistance = 50
+
+Lv1_fodder = Lv1_fodder()
+Lv2_fodder = Lv2_fodder()
+Dragon = Dragon()
+Yaranzo = Yaranzo()
+Slime = Slime()
